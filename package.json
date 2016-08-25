@@ -1,0 +1,30 @@
+{
+  "name": "api-espm",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "node src/bin/www"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alvarollmenezes/api-espm.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alvarollmenezes/api-espm/issues"
+  },
+  "homepage": "https://github.com/alvarollmenezes/api-espm#readme",
+  "dependencies": {
+    "compression": "^1.6.2",
+    "cors": "^2.7.1",
+    "debug": "^2.2.0",
+    "express": "^4.14.0",
+    "newrelic": "^1.28.1",
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1"
+  },
+  "devDependencies": {
+    "eslint-config-prodest": "^1.0.12"
+  }
+}
