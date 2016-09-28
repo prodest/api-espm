@@ -17,6 +17,7 @@
   "homepage": "https://github.com/alvarollmenezes/api-espm#readme",
   "dependencies": {
     "apicache": "0.0.14",
+    "body-parser": "^1.15.2",
     "compression": "^1.6.2",
     "cors": "^2.7.1",
     "debug": "^2.2.0",
@@ -24,7 +25,8 @@
     "newrelic": "^1.28.1",
     "node-mw-api-prodest": "^1.2.4",
     "request": "^2.74.0",
-    "request-promise": "^4.1.1"
+    "request-promise": "^4.1.1",
+    "thinky": "^2.3.6"
   },
   "devDependencies": {
     "eslint-config-prodest": "^1.0.12"

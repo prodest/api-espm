@@ -2,6 +2,7 @@
   "globalDependencies": {
     "express": "registry:dt/express#4.0.0+20160708185218",
     "node": "registry:dt/node#6.0.0+20160802155038",
-    "request": "registry:dt/request#0.0.0+20160726020908"
+    "request": "registry:dt/request#0.0.0+20160726020908",
+    "thinky": "github:xdevelsistemas/typings-thinky#af288fdaf7ae179688f1fd89222e1062ed0c94ec"
   }
 }
