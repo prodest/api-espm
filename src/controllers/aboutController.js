@@ -29,7 +29,7 @@ module.exports = () => {
     aboutController.getTesteCache = ( req, res ) => {
 
         let ret = lista;
-        for ( let i = 0; i < new Date().getSeconds(); i++ ) {
+        for ( let i = 0; i < ( new Date().getSeconds() / 5 ); i++ ) {
             ret = ret.concat( lista );
         }
 
