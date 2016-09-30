@@ -22,5 +22,19 @@ module.exports = () => {
         .catch( err => next( err ) );
     };
 
+    let lista = [
+        { nome: 'Baiano', idade: 33 }
+    ];
+
+    aboutController.getTesteCache = ( req, res ) => {
+
+        let ret = lista;
+        for ( let i = 0; i < new Date().getSeconds(); i++ ) {
+            ret = ret.concat( lista );
+        }
+
+        return res.json( ret );
+    };
+
     return aboutController;
 };
