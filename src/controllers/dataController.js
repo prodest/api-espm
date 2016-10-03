@@ -11,10 +11,10 @@ module.exports = () => {
 
         method( req.body )
         .then( result => {
-            res.json( result );
+            return res.json( result );
         } )
         .catch( err => {
-            next( err );
+            return next( err );
         } );
     }
 
@@ -22,10 +22,14 @@ module.exports = () => {
 
         method( parseInt( req.decodedToken.sub ) )
         .then( data => {
-            res.json( data );
+            return res.json( data );
         } )
         .catch( err => {
-            next( err );
+            if ( err.name === 'DocumentNotFoundError' ) {
+                return res.json( {} );
+            } else {
+                return next( err );
+            }
         } );
     }
 
