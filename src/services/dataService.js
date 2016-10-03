@@ -35,7 +35,7 @@ module.exports = () => {
 
         return Model.get( data.id ).run()
         .then( res => {
-            if ( data.date > res.date ) {
+            if ( new Date(data.date) > new Date(res.date) ) {
                 return Model.get( data.id ).replace( data ).execute();
             } else {
                 return res;
