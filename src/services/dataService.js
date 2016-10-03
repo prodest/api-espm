@@ -1,6 +1,5 @@
 const configRethinkDB = require( '../config/rethinkdb' );
 const thinky = require( 'thinky' )( configRethinkDB );
-const r = thinky.r;
 const type = thinky.type;
 
 const FavoriteBusLines = baseModel( 'favoriteBusLines' );
@@ -16,7 +15,7 @@ const Vehicles = baseModel( 'vehicles' );
 function baseModel( tableName ) {
     return thinky.createModel( tableName, {
         id: type.number(),
-        date: type.date().default( r.now() )
+        date: type.date().default( Date.now() )
     } );
 }
 
