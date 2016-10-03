@@ -8,7 +8,6 @@ module.exports = () => {
         const data = req.body;
         data.userId = parseInt( req.decodedToken.sub );
 
-
         method( req.body )
         .then( result => {
             return res.json( result );

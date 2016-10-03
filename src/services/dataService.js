@@ -1,10 +1,24 @@
 const configRethinkDB = require( '../config/rethinkdb' );
 const thinky = require( 'thinky' )( configRethinkDB );
+const r = thinky.r;
 const type = thinky.type;
 
-const FavoriteBusLines = thinky.createModel( 'favoriteBusLines', { id: type.number() } );
-const Settings = thinky.createModel( 'settings', { id: type.number() } );
-const Vehicles = thinky.createModel( 'vehicles', { id: type.number() } );
+const FavoriteBusLines = baseModel( 'favoriteBusLines' );
+const Settings = baseModel( 'settings' );
+const Vehicles = baseModel( 'vehicles' );
+
+/**
+ * Creates the base model for a table
+ *
+ * @param {any} tableName Name of the table
+ * @return {any} Base model
+ */
+function baseModel( tableName ) {
+    thinky.createModel( tableName, {
+        id: type.number(),
+        date: type.date().default( r.now() )
+    } );
+}
 
 module.exports = () => {
     const dataService = new Object();
@@ -20,13 +34,20 @@ module.exports = () => {
         data.id = data.userId;
         delete data.userId;
 
-        return Model.filter( { id: data.id } ).count().execute()
-        .then( count => {
-            if ( count !== 0 ) {
+        return Model.get( data.id ).run()
+        .then( res => {
+            if ( data.date > res.date ) {
                 return Model.get( data.id ).replace( data ).execute();
             } else {
+                return res;
+            }
+        } )
+        .catch( err => {
+            if ( err.name === 'DocumentNotFoundError' ) {
                 const obj = new Model( data );
                 return obj.save();
+            } else {
+                throw err;
             }
         } );
     }
