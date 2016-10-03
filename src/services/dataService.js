@@ -14,7 +14,7 @@ const Vehicles = baseModel( 'vehicles' );
  * @return {any} Base model
  */
 function baseModel( tableName ) {
-    thinky.createModel( tableName, {
+    return thinky.createModel( tableName, {
         id: type.number(),
         date: type.date().default( r.now() )
     } );

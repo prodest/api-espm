@@ -5,11 +5,11 @@ module.exports = app => {
     app.post( '/data/favoriteBusLines', dataController.saveFavoriteBusLines );
     app.get( '/data/favoriteBusLines', dataController.getFavoriteBusLines );
 
-    app.post( '/data/settings', dataController.saveVehicles );
-    app.get( '/data/settings', dataController.getVehicles );
+    app.post( '/data/settings', dataController.saveSettings );
+    app.get( '/data/settings', dataController.getSettings );
 
-    app.post( '/data/vehicles', dataController.saveSettings );
-    app.get( '/data/vehicles', dataController.getSettings );
+    app.post( '/data/vehicles', dataController.saveVehicles );
+    app.get( '/data/vehicles', dataController.getVehicles );
 
     return app;
 };
