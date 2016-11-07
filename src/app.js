@@ -10,9 +10,15 @@ const apiMiddleware = require( 'node-mw-api-prodest' ).middleware;
 
 let app = express();
 
+// load our routes
 app.use( apiMiddleware( {
     compress: true,
-    cors: true,
+    cors: true
+} ) );
+
+require( './routes/about' )( app );
+
+app.use( apiMiddleware( {
     authentication: {
         jwtPublicKey: config.jwtPublicKey
     }
@@ -20,8 +26,6 @@ app.use( apiMiddleware( {
 
 app.use( bodyParser() );
 
-// load our routes
-require( './routes/about' )( app );
 require( './routes/data' )( app );
 
 app.use( apiMiddleware( {
