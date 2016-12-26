@@ -17,6 +17,7 @@ app.use( apiMiddleware( {
 } ) );
 
 require( './routes/about' )( app );
+require( './routes/data-basic' )( app );
 
 app.use( apiMiddleware( {
     authentication: {

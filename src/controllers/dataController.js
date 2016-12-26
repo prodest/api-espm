@@ -3,7 +3,7 @@ const dataService = require( '../services/dataService' );
 module.exports = () => {
     const dataController = new Object();
 
-    function save( method, req, res, next ) {
+    const save = ( method, req, res, next ) => {
 
         const data = req.body;
         data.userId = parseInt( req.decodedToken.sub );
@@ -15,11 +15,11 @@ module.exports = () => {
         .catch( err => {
             return next( err );
         } );
-    }
+    };
 
-    function get( method, req, res, next ) {
+    const get = ( method, filter, req, res, next ) => {
 
-        method( parseInt( req.decodedToken.sub ) )
+        method( filter )
         .then( data => {
             return res.json( data );
         } )
@@ -30,7 +30,7 @@ module.exports = () => {
                 return next( err );
             }
         } );
-    }
+    };
 
     // FavoriteBusLines
     dataController.saveFavoriteBusLines = ( req, res, next ) => {
@@ -38,7 +38,7 @@ module.exports = () => {
     };
 
     dataController.getFavoriteBusLines = ( req, res, next ) => {
-        get( dataService().getFavoriteBusLines, req, res, next );
+        get( dataService().getFavoriteBusLines, parseInt( req.decodedToken.sub ), req, res, next );
     };
 
     // Settings
@@ -47,7 +47,7 @@ module.exports = () => {
     };
 
     dataController.getSettings = ( req, res, next ) => {
-        get( dataService().getSettings, req, res, next );
+        get( dataService().getSettings, parseInt( req.decodedToken.sub ), req, res, next );
     };
 
     // Vehicles
@@ -56,7 +56,20 @@ module.exports = () => {
     };
 
     dataController.getVehicles = ( req, res, next ) => {
-        get( dataService().getVehicles, req, res, next );
+        get( dataService().getVehicles, parseInt( req.decodedToken.sub ), req, res, next );
+    };
+
+    // FavoriteSepProtocol
+    dataController.saveFavoriteSepProtocol = ( req, res, next ) => {
+        save( dataService().saveFavoriteSepProtocol, req, res, next );
+    };
+
+    dataController.getFavoriteSepProtocol = ( req, res, next ) => {
+        get( dataService().getFavoriteSepProtocol, parseInt( req.decodedToken.sub ), req, res, next );
+    };
+
+    dataController.getUsersByFavoriteSepProtocol = ( req, res, next ) => {
+        get( dataService().getUsersByFavoriteSepProtocol, parseInt( req.params.number ), req, res, next );
     };
 
     return dataController;

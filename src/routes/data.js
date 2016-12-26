@@ -15,5 +15,8 @@ module.exports = app => {
     app.post( '/detran/data/vehicles', dataController.saveVehicles );
     app.get( '/detran/data/vehicles', dataController.getVehicles );
 
+    app.post( '/sep/data/favorite', dataController.saveFavoriteSepProtocol );
+    app.get( '/sep/data/favorite', dataController.getFavoriteSepProtocol );
+
     return app;
 };
