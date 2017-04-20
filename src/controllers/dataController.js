@@ -9,27 +9,33 @@ module.exports = () => {
         data.userId = parseInt( req.decodedToken.sub );
 
         method( req.body )
-        .then( result => {
-            return res.json( result );
-        } )
-        .catch( err => {
-            return next( err );
-        } );
+            .then( result => {
+                return res.json( result );
+            } )
+            .catch( err => {
+                return next( err );
+            } );
     };
 
     const get = ( method, filter, req, res, next ) => {
 
         method( filter )
-        .then( data => {
-            return res.json( data );
-        } )
-        .catch( err => {
-            if ( err.name === 'DocumentNotFoundError' ) {
-                return res.json( {} );
-            } else {
-                return next( err );
-            }
-        } );
+            .then( data => {
+                return res.json( data );
+            } )
+            .catch( err => {
+                if ( err.name === 'DocumentNotFoundError' ) {
+                    return res.json( {} );
+                } else {
+                    return next( err );
+                }
+            } );
+    };
+
+    const lPad = ( number, width, z ) => {
+        z = z || '0';
+        number = number + '';
+        return number.length >= width ? number : new Array( width - number.length + 1 ).join( z ) + number;
     };
 
     // FavoriteBusLines
@@ -69,7 +75,8 @@ module.exports = () => {
     };
 
     dataController.getUsersByFavoriteSepProtocol = ( req, res, next ) => {
-        get( dataService().getUsersByFavoriteSepProtocol, parseInt( req.params.number ), req, res, next );
+        const lpadNumber = lPad( req.params.number, 8 );
+        get( dataService().getUsersByFavoriteSepProtocol, lpadNumber, req, res, next );
     };
 
     return dataController;
