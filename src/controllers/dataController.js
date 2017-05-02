@@ -47,6 +47,15 @@ module.exports = () => {
         get( dataService().getFavoriteBusLines, parseInt( req.decodedToken.sub ), req, res, next );
     };
 
+    // FavoriteBuscaBus
+    dataController.saveFavoriteBuscaBus = ( req, res, next ) => {
+        save( dataService().saveFavoriteBuscaBus, req, res, next );
+    };
+
+    dataController.getFavoriteBuscaBus = ( req, res, next ) => {
+        get( dataService().getFavoriteBuscaBus, parseInt( req.decodedToken.sub ), req, res, next );
+    };
+
     // Settings
     dataController.saveSettings = ( req, res, next ) => {
         save( dataService().saveSettings, req, res, next );
