@@ -7,6 +7,9 @@ module.exports = app => {
     app.post( '/ceturb/data/favorite', dataController.saveFavoriteBusLines );
     app.get( '/ceturb/data/favorite', dataController.getFavoriteBusLines );
 
+    app.post( '/ceturb/buscaBus/data/favorite', dataController.saveFavoriteBuscaBus );
+    app.get( '/ceturb/buscaBus/data/favorite', dataController.getFavoriteBuscaBus );
+
     app.post( '/data/settings', dataController.saveSettings );
     app.get( '/data/settings', dataController.getSettings );
 

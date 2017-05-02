@@ -34,6 +34,7 @@ const sepBaseModel = ( tableName ) => {
 };
 
 const FavoriteBusLines = baseModel( 'favoriteBusLines' );
+const FavoriteBuscaBus = baseModel( 'favoriteBuscaBus' );
 const Settings = baseModel( 'settings' );
 const Vehicles = baseModel( 'vehicles' );
 const FavoriteSepProtocol = sepBaseModel( 'favoriteSepProtocol' );
@@ -77,6 +78,15 @@ module.exports = () => {
 
     dataService.getFavoriteBusLines = ( userId ) => {
         return FavoriteBusLines.get( userId ).run();
+    };
+
+    // FavoriteBuscaBus
+    dataService.saveFavoriteBuscaBus = ( data ) => {
+        return save( FavoriteBuscaBus, data );
+    };
+
+    dataService.getFavoriteBuscaBus = ( userId ) => {
+        return FavoriteBuscaBus.get( userId ).run();
     };
 
     // Settings
