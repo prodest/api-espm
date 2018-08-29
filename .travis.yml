@@ -1,14 +1,19 @@
-require: sudo
+branches:
+  only:
+    - /^v[0-9]+(\.[0-9]+){2}$/
+dist: trusty
 language: node_js
+node_js:
+  - 8
 services:
   - docker
 env:
-  - DOCKER_IMAGE=prodest/api-espm SERVICE_NAME=api-espm RANCHER_URL=http://cloud.datacenter.es.gov.br.local/v1/projects/1a4680 RANCHER_STACK=api RANCHER_COMPOSE_URL=http://cloud.datacenter.es.gov.br.local/v1/projects/1a4680/environments/1e56/composeconfig
+  - DOCKER_IMAGE=prodest/api-espm:$TRAVIS_TAG
 script: 
-  /bin/sh .travis.sh
+  - scripts/travis.sh
 deploy:
   provider: script
   skip_cleanup: true
-  script: /bin/sh .deploy.sh
+  script: scripts/deploy.sh api api api-espm
   on:
-    branch: master
+    tags: true
