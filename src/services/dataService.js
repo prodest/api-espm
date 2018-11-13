@@ -45,7 +45,6 @@ const FavoriteBusLines = baseModel('favoriteBusLines');
 const FavoriteBuscaBus = baseModel('favoriteBuscaBus');
 const Settings = baseModel('settings');
 const Vehicles = baseModel('vehicles');
-// const FavoriteSepProtocolOld = sepBaseModelOld('favoriteSepProtocol');
 const FavoriteSepProtocol = sepBaseModel('favoriteSepProtocol');
 
 module.exports = () => {
@@ -121,11 +120,11 @@ module.exports = () => {
 
   // FavoriteSepProtocol
   dataService.saveFavoriteSepProtocol = data => {
-    return save(FavoriteSepProtocolOld, data);
+    return save(FavoriteSepProtocol, data);
   };
 
   dataService.getFavoriteSepProtocol = userId => {
-    return FavoriteSepProtocolOld.get(userId).run();
+    return FavoriteSepProtocol.get(userId).run();
   };
 
   dataService.getUsersByFavoriteSepProtocol = number => {
