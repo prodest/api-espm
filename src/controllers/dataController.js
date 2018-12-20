@@ -74,6 +74,11 @@ module.exports = () => {
         get( dataService().getVehicles, parseInt( req.decodedToken.sub ), req, res, next );
     };
 
+    dataController.getUsersByVehiclePlate = ( req, res, next ) => {
+        const plate = req.params.plate;
+        get( dataService().getUsersByVehiclePlate, plate, req, res, next );
+    };
+
     // FavoriteSepProtocol
     dataController.saveFavoriteSepProtocol = ( req, res, next ) => {
         save( dataService().saveFavoriteSepProtocol, req, res, next );

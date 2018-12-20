@@ -16,5 +16,7 @@ module.exports = app => {
 
     app.get( '/sep/data/favorite/:number/users', verifyBasicAuthentication, dataController.getUsersByFavoriteSepProtocol );
 
+    app.get( '/detran/data/vehicles/:plate/users', verifyBasicAuthentication, dataController.getUsersByVehiclePlate );
+
     return app;
 };

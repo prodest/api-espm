@@ -41,10 +41,27 @@ const sepBaseModel = tableName => {
   return entity;
 };
 
+const vehicleBaseModel = tableName => {
+  const entity = thinky.createModel(tableName, {
+    id: type.number(),
+    date: type.date().default(new Date()),
+    vehicles: type.array().schema({
+      color: type.string(),
+      model: type.string(),
+      plate: type.string(),
+      renavam: type.any()
+    })
+  });
+
+  entity.ensureIndex('vehiclePlate', doc => doc('vehicles')('plate').map(val => val.downcase()), { multi: true });
+
+  return entity;
+};
+
 const FavoriteBusLines = baseModel('favoriteBusLines');
 const FavoriteBuscaBus = baseModel('favoriteBuscaBus');
 const Settings = baseModel('settings');
-const Vehicles = baseModel('vehicles');
+const Vehicles = vehicleBaseModel('vehicles');
 const FavoriteSepProtocol = sepBaseModel('favoriteSepProtocol');
 
 module.exports = () => {
@@ -116,6 +133,12 @@ module.exports = () => {
 
   dataService.getVehicles = userId => {
     return Vehicles.get(userId).run();
+  };
+
+  dataService.getUsersByVehiclePlate = plate => {
+    const plates = Vehicles.getAll(plate.toLowerCase(), { index: 'vehiclePlate' }).run();
+
+    return plates.then(userList => userList.map(user => user.id));
   };
 
   // FavoriteSepProtocol
