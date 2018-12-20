@@ -1,4 +1,6 @@
 const config = require( './config/app' );
+const dotenv = require('dotenv');
+dotenv.config();
 
 if ( config.env === 'production' ) {
     require( 'newrelic' );
