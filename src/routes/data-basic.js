@@ -2,7 +2,7 @@ const config = require( '../config/app' );
 
 const verifyBasicAuthentication = ( req, res, next ) => {
     const authorizationHeader = req.get( 'Authorization' );
-    if ( !authorizationHeader || authorizationHeader !== config.sepAccessToken ) {
+    if ( !authorizationHeader || authorizationHeader !== config.apiAccessToken ) {
         res.statusCode = 401;
         res.send( 'Access denied' );
     } else {
