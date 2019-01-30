@@ -70,7 +70,7 @@ const publicTenderBaseModel = tableName => {
   const entity = thinky.createModel(tableName, {
     id: type.number(),
     date: type.date().default(new Date()),
-    idContest: type.array().number()
+    idTender: type.array().number()
   });
   return entity;
 };
@@ -80,7 +80,7 @@ const FavoriteBuscaBus = baseModel("favoriteBuscaBus");
 const Settings = baseModel("settings");
 const Vehicles = vehicleBaseModel("vehicles");
 const FavoriteSepProtocol = sepBaseModel("favoriteSepProtocol");
-const FavoritePublicTender = contestBaseModel("favoritePublicTender");
+const FavoritePublicTender = publicTenderBaseModel("favoritePublicTender");
 
 module.exports = () => {
   const dataService = new Object();
