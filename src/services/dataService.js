@@ -1,5 +1,5 @@
-const configRethinkDB = require('../config/rethinkdb');
-const thinky = require('thinky')(configRethinkDB);
+const configRethinkDB = require("../config/rethinkdb");
+const thinky = require("thinky")(configRethinkDB);
 const type = thinky.type;
 
 /**
@@ -35,8 +35,12 @@ const sepBaseModel = tableName => {
   });
 
   // entity.ensureIndex('favoriteProcess', doc => doc('id'), { multi: true });
-  entity.ensureIndex('favoriteProcess', doc => doc('protocols')('number'), { multi: true });
-  entity.ensureIndex('favoriteProcessOld', doc => doc('favoriteProcess'), { multi: true });
+  entity.ensureIndex("favoriteProcess", doc => doc("protocols")("number"), {
+    multi: true
+  });
+  entity.ensureIndex("favoriteProcessOld", doc => doc("favoriteProcess"), {
+    multi: true
+  });
 
   return entity;
 };
@@ -53,16 +57,30 @@ const vehicleBaseModel = tableName => {
     })
   });
 
-  entity.ensureIndex('vehiclePlate', doc => doc('vehicles')('plate').map(val => val.downcase()), { multi: true });
+  entity.ensureIndex(
+    "vehiclePlate",
+    doc => doc("vehicles")("plate").map(val => val.downcase()),
+    { multi: true }
+  );
 
   return entity;
 };
 
-const FavoriteBusLines = baseModel('favoriteBusLines');
-const FavoriteBuscaBus = baseModel('favoriteBuscaBus');
-const Settings = baseModel('settings');
-const Vehicles = vehicleBaseModel('vehicles');
-const FavoriteSepProtocol = sepBaseModel('favoriteSepProtocol');
+const publicTenderBaseModel = tableName => {
+  const entity = thinky.createModel(tableName, {
+    id: type.number(),
+    date: type.date().default(new Date()),
+    idContest: type.array().number()
+  });
+  return entity;
+};
+
+const FavoriteBusLines = baseModel("favoriteBusLines");
+const FavoriteBuscaBus = baseModel("favoriteBuscaBus");
+const Settings = baseModel("settings");
+const Vehicles = vehicleBaseModel("vehicles");
+const FavoriteSepProtocol = sepBaseModel("favoriteSepProtocol");
+const FavoritePublicTender = contestBaseModel("favoritePublicTender");
 
 module.exports = () => {
   const dataService = new Object();
@@ -90,13 +108,22 @@ module.exports = () => {
         }
       })
       .catch(err => {
-        if (err.name === 'DocumentNotFoundError') {
+        if (err.name === "DocumentNotFoundError") {
           const obj = new Model(data);
           return obj.save();
         } else {
           throw err;
         }
       });
+  };
+
+  // FavoritePublicTender
+  dataService.saveFavoritePublicTender = data => {
+    return save(FavoritePublicTender, data);
+  };
+
+  dataService.getFavoritePublicTender = userId => {
+    return FavoritePublicTender.get(userId).run();
   };
 
   // FavoriteBusLines
@@ -136,7 +163,9 @@ module.exports = () => {
   };
 
   dataService.getUsersByVehiclePlate = plate => {
-    const plates = Vehicles.getAll(plate.toLowerCase(), { index: 'vehiclePlate' }).run();
+    const plates = Vehicles.getAll(plate.toLowerCase(), {
+      index: "vehiclePlate"
+    }).run();
 
     return plates.then(userList => userList.map(user => user.id));
   };
@@ -151,8 +180,12 @@ module.exports = () => {
   };
 
   dataService.getUsersByFavoriteSepProtocol = number => {
-    const oldStyleProcess = FavoriteSepProtocol.getAll(number, { index: 'favoriteProcessOld' }).run();
-    const process = FavoriteSepProtocol.getAll(number, { index: 'favoriteProcess' }).run();
+    const oldStyleProcess = FavoriteSepProtocol.getAll(number, {
+      index: "favoriteProcessOld"
+    }).run();
+    const process = FavoriteSepProtocol.getAll(number, {
+      index: "favoriteProcess"
+    }).run();
 
     return Promise.all([oldStyleProcess, process]).then(userList =>
       userList.reduce((a, b) => a.concat(b)).map(user => user.id)
