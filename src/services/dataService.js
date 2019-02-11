@@ -70,7 +70,7 @@ const publicTenderBaseModel = tableName => {
   const entity = thinky.createModel(tableName, {
     id: type.number(),
     date: type.date().default(new Date()),
-    idTender: type.array().number()
+    idTender: [type.number()]
   });
   return entity;
 };
