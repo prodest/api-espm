@@ -75,12 +75,22 @@ const publicTenderBaseModel = tableName => {
   return entity;
 };
 
+const studentOpportunitiesBaseModel = tableName => {
+  const entity = thinky.createModel(tableName, {
+    id: type.number(),
+    date: type.date().default(new Date()),
+    idOpportunity: [type.number()]
+  });
+  return entity;
+};
+
 const FavoriteBusLines = baseModel("favoriteBusLines");
 const FavoriteBuscaBus = baseModel("favoriteBuscaBus");
 const Settings = baseModel("settings");
 const Vehicles = vehicleBaseModel("vehicles");
 const FavoriteSepProtocol = sepBaseModel("favoriteSepProtocol");
 const FavoritePublicTender = publicTenderBaseModel("favoritePublicTender");
+const FavoriteStudentOpportunities = studentOpportunitiesBaseModel("favoriteStudentOpportunities")
 
 module.exports = () => {
   const dataService = new Object();
@@ -115,6 +125,15 @@ module.exports = () => {
           throw err;
         }
       });
+  };
+
+  // FavoriteStudentOpportunities
+  dataService.saveFavoriteStudentOpportunities = data => {
+    return save(FavoriteStudentOpportunities, data);
+  };
+
+  dataService.getFavoriteStudentOpportunities = userId => {
+    return FavoriteStudentOpportunities.get(userId).run();
   };
 
   // FavoritePublicTender

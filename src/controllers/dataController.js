@@ -38,6 +38,21 @@ module.exports = () => {
       : new Array(width - number.length + 1).join(z) + number;
   };
 
+  // FavoriteStudentOpportunities
+  dataController.saveFavoriteStudentOpportunities = (req, res, next) => {
+    save(dataService().saveFavoriteStudentOpportunity, req, res, next);
+  };
+
+  dataController.getFavoriteStudentOpportunities = (req, res, next) => {
+    get(
+      dataService().getFavoriteStudentOpportunities,
+      parseInt(req.decodedToken.sub),
+      req,
+      res,
+      next
+    );
+  };
+
   // FavoritePublicTender
   dataController.saveFavoritePublicTender = (req, res, next) => {
     save(dataService().saveFavoritePublicTender, req, res, next);
