@@ -40,7 +40,7 @@ module.exports = () => {
 
   // FavoriteStudentOpportunities
   dataController.saveFavoriteStudentOpportunities = (req, res, next) => {
-    save(dataService().saveFavoriteStudentOpportunity, req, res, next);
+    save(dataService().saveFavoriteStudentOpportunities, req, res, next);
   };
 
   dataController.getFavoriteStudentOpportunities = (req, res, next) => {
