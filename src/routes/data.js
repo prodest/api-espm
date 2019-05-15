@@ -35,5 +35,14 @@ module.exports = app => {
     dataController.getFavoritePublicTender
   );
 
+  app.post(
+    "/studentOpportunities/data/favorite",
+    dataController.saveFavoriteStudentOpportunities
+  );
+  app.get(
+    "/studentOpportunities/data/favorite",
+    dataController.getFavoriteStudentOpportunities
+  );
+
   return app;
 };
