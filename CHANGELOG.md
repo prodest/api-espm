@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="1.4.0"></a>
+# [1.4.0](https://github.com/alvarollmenezes/api-espm/compare/v1.3.1...v1.4.0) (2019-05-17)
+
+
+### Bug Fixes
+
+* save favorite student opportunities method name ([c18e706](https://github.com/alvarollmenezes/api-espm/commit/c18e706))
+
+
+### Features
+
+* add student opportunities favorite ([e8c9867](https://github.com/alvarollmenezes/api-espm/commit/e8c9867))
+
+
+
 <a name="1.3.1"></a>
 ## [1.3.1](https://github.com/alvarollmenezes/api-espm/compare/v1.3.0...v1.3.1) (2019-02-11)
 
