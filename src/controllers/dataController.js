@@ -38,6 +38,21 @@ module.exports = () => {
       : new Array(width - number.length + 1).join(z) + number;
   };
 
+  // Favorite ESPM Modules
+  dataController.saveFavoriteEspmModules = (req, res, next) => {
+    save(dataService().saveFavoriteEspmModules, req, res, next);
+  };
+
+  dataController.getFavoriteEspmModules = (req, res, next) => {
+    get(
+      dataService().getFavoriteEspmModules,
+      parseInt(req.decodedToken.sub),
+      req,
+      res,
+      next
+    );
+  };
+
   // FavoriteStudentOpportunities
   dataController.saveFavoriteStudentOpportunities = (req, res, next) => {
     save(dataService().saveFavoriteStudentOpportunities, req, res, next);
