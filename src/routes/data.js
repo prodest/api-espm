@@ -44,5 +44,14 @@ module.exports = app => {
     dataController.getFavoriteStudentOpportunities
   );
 
+  app.post(
+    "/espm/modules/favorite",
+    dataController.saveFavoriteEspmModules
+  );
+  app.get(
+    "/espm/modules/favorite",
+    dataController.getFavoriteEspmModules
+  );
+
   return app;
 };

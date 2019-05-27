@@ -84,6 +84,15 @@ const studentOpportunitiesBaseModel = tableName => {
   return entity;
 };
 
+const favoriteEspmModulesBaseModel = tableName => {
+  const entity = thinky.createModel(tableName, {
+    id: type.number(),
+    date: type.date().default(new Date()),
+    idModule: [type.number()]
+  });
+  return entity;
+};
+
 const FavoriteBusLines = baseModel("favoriteBusLines");
 const FavoriteBuscaBus = baseModel("favoriteBuscaBus");
 const Settings = baseModel("settings");
@@ -91,6 +100,7 @@ const Vehicles = vehicleBaseModel("vehicles");
 const FavoriteSepProtocol = sepBaseModel("favoriteSepProtocol");
 const FavoritePublicTender = publicTenderBaseModel("favoritePublicTender");
 const FavoriteStudentOpportunities = studentOpportunitiesBaseModel("favoriteStudentOpportunities")
+const FavoriteEspmModules = favoriteEspmModulesBaseModel("favoriteEspmModules");
 
 module.exports = () => {
   const dataService = new Object();
@@ -125,6 +135,14 @@ module.exports = () => {
           throw err;
         }
       });
+  };
+
+  // Favorite ESPM Modules
+  dataService.saveFavoriteEspmModules = data => {
+    return save(FavoriteEspmModules, data)
+  };
+  dataService.getFavoriteEspmModules = userId => {
+    return FavoriteEspmModules.get(userId).run();
   };
 
   // FavoriteStudentOpportunities
